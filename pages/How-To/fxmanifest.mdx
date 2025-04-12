@@ -1,0 +1,49 @@
+
+---
+title: 1. fxmanifest
+description: How to create and structure the `fxmanifest.lua` file for your FiveM resource.
+---
+
+import {Steps} from 'nextra-theme-docs';
+import {Callout} from 'nextra/components';
+
+# Creating the `fxmanifest.lua` File
+
+To fully migrate to the `fxmanifest.lua`, follow these steps to structure your file properly.
+
+## Create the `fxmanifest.lua` file
+
+Create a new file named `fxmanifest.lua` in your resource folder. Inside this file, add the following lines:
+
+```lua
+fx_version 'cerulean'
+game 'gta5'
+
+files {
+    'data/*.meta',
+    'data/els/*.xml' -- Only for ELS
+}
+
+data_file 'HANDLING_FILE'           'data/handling.meta'
+data_file 'VEHICLE_METADATA_FILE'   'data/vehicles.meta'
+data_file 'CARCOLS_FILE'            'data/carcols.meta'
+data_file 'VEHICLE_VARIATION_FILE'  'data/carvariations.meta'
+data_file 'VEHICLE_LAYOUTS_FILE'    'data/vehiclelayouts.meta'
+data_file 'CONTENT_UNLOCKING_META_FILE' 'data/contentunlocks.meta'
+data_file 'POP_GROUPS_FILE'         'data/popgroups.ymt'
+data_file 'LEVEL_GTAO_FILE'         'data/level.meta'
+data_file 'WEAPON_METADATA_FILE'    'data/weaponarchetypes.meta'
+data_file 'EXPLOSION_INFO_FILE'     'data/explosion.meta'
+data_file 'WEAPONINFO_FILE'         'data/vehicleweapons.meta'
+data_file 'VEHICLE_SHOP_DLC_FILE'   'data/shop_vehicle.meta'
+
+is_els 'true' -- Only for ELS
+```
+
+<Callout type="warning">
+Make sure to remove any files from the data_file list that are not part of your resource or not necessary for your resource.
+</Callout>
+
+<Callout type="warning">
+Make sure to remove is_els and data/els/*.meta/ if your vehicle does not support ELS.
+</Callout>

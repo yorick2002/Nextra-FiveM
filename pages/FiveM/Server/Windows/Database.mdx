@@ -16,7 +16,7 @@ In this guide I will be explaining how to install MariaDB in combination with He
 ### Download MariaDB
 
 - Download MariaDB from [the official website](https://mariadb.org/download)
-- Select MariaDB Server Version **11.4.4**
+- Select MariaDB Server Version **11.4.5**
 - Select "Windows" as "Operating System"
 - The website should now look like <LinkButton text={"this"} image={"https://r2.fivemanage.com/image/rlpc2WShqOYo.png"}/>
 - Leave the "mirror" default
@@ -39,6 +39,10 @@ Now that we have installed the MSI file, its time to install the application.
 </Steps>
 
 ## HeidiSQL
+
+<Callout type="warning">
+HeidiSQl will be installed by default with MariaDB. You dont need to install it separately.
+</Callout>
 
 HeidiSQL is used to view and manage the database.
 <Steps>
@@ -64,6 +68,11 @@ HeidiSQL is used to view and manage the database.
 ## Optional
 
 ### Connect to the server and create a database
+
+<Callout type="warning">
+Most Frameworks will create the database for you, but if you want to do it manually, follow these steps.
+</Callout>
+
 - Open HeidiSQL once the installation is complete
 - In the bottom left, click on "New"
 - Now enter the connection details as follows:

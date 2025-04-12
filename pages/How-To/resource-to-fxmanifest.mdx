@@ -1,0 +1,31 @@
+---
+title: 2. Migration to `fxmanifest.lua`
+description: Guide to migrate from `__resource.lua` to `fxmanifest.lua`.
+---
+
+import {Steps} from 'nextra-theme-docs';
+
+# Migrating from `__resource.lua` to `fxmanifest.lua`
+
+This guide will walk you through the necessary steps to migrate from `__resource.lua` to `fxmanifest.lua` for FiveM resources.
+
+## Step 1: Open the `__resource.lua` file
+
+First, locate and open your `__resource.lua` file. If you have the line below, remove it:
+
+```lua
+resource_manifest_version 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX'
+```
+
+## Step 2: Add `fx_version` and `game`
+
+Next, add the following lines to specify the correct version and game type for your resource:
+
+```lua
+fx_version 'cerulean'
+game 'gta5'
+```
+
+## Step 3: Rename the file
+
+After adding the necessary lines, rename the file from `__resource.lua` to `fxmanifest.lua`.

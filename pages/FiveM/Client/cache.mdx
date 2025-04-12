@@ -1,0 +1,41 @@
+---
+title: 3. Cache clear
+description: A guide to help you clear the FiveM cache to resolve issues.
+---
+
+import { Steps } from 'nextra-theme-docs';  
+import { Callout } from 'nextra/components';  
+
+
+### How to Clear FiveM Cache
+
+<Steps>
+
+**Step 1: Close FiveM**
+
+Before you begin, make sure FiveM is not running. If FiveM is open, close it to avoid any issues during the cache clearing process.
+
+**Step 2: Navigate to the FiveM Cache Folder**
+
+The cache folder is located within the FiveM application data folder. To access it:
+
+1. Press `Windows + R` to open the Run dialog.
+2. Type `%localappdata%/fivem\FiveM.app\data` and press Enter. This will open the cache folder.
+3. Delete the Cache Files
+
+Once you’re in the cache folder, you’ll see several folders. Delete the following:
+
+- `cache`
+- `server-cache`
+- `server-cache-priv`
+
+<Callout type="warning">
+Deleting any of the other folders will clear the downloaded game files. You can delete those, but FiveM will have to download Updates again.
+</Callout>
+
+
+</Steps>
+
+<Callout type="info">
+For more troubleshooting steps, or if clearing the cache doesn’t fix the issue, consult the [Official FiveM Support Page](https://forum.fivem.net) or visit this [Tutorial](https://fivemx.com/tutorials/how-to-clear-fivem-cache/) for further help.
+</Callout>

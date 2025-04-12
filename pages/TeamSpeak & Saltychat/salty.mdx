@@ -1,0 +1,62 @@
+---
+title: 2. Saltychat
+description: This guide will walk you through the steps required to resolve issues with SaltyChat
+---
+
+import { Steps } from 'nextra-theme-docs';  
+import { Callout } from 'nextra/components';  
+
+### Introduction
+
+SaltyChat is a popular voice chat plugin for TeamSpeak. Some users may encounter issues with SaltyChat, such as connectivity problems or errors, which can sometimes be resolved by accepting the EULA in TeamSpeak and adjusting your DNS server settings. This guide will help you fix these issues step by step.
+
+### How to Fix SaltyChat Issues
+
+Follow these steps to resolve your SaltyChat issues by accepting the EULA and changing the DNS server:
+
+<Steps>
+
+**Step 1: Accept the EULA in TeamSpeak**
+
+1. Launch TeamSpeak. You dont have to be connected to a server to change the settings, but you can do it while connected.
+
+2. Navigate to the settings menu by clicking on the **Tools** option in the top toolbar, then selecting **Options** from the dropdown menu.
+3. Go to **Addons** and the EULA should pop up. If it doesnt, you need to scroll to SaltyChat and click on settings.
+4. Click the **Accept** button to confirm and proceed.
+
+Once you’ve accepted the EULA, SaltyChat should function properly in TeamSpeak.
+
+**Step 2: Change Your DNS Server Settings**
+
+To improve connectivity and resolve potential DNS-related issues with SaltyChat, you’ll need to adjust your DNS settings to use reliable DNS servers. Follow the steps below to change the DNS server:
+
+1. **Open Network Settings**:
+    Open the **Control Panel**, go to **Network and Sharing Center**, and click on **Change adapter settings** on the left.
+
+2. **Change DNS Settings**:
+   - Right-click your active network connection and choose **Properties**.
+   - Under **Internet Protocol Version 4 (IPv4)**, choose **Use the following DNS server addresses** and enter the following DNS server settings:
+
+     - **IPv4:**
+       - **Primary DNS:** `1.1.1.1`
+       - **Secondary DNS:** `1.0.0.1`
+
+   - Under **Internet Protocol Version 6 (IPv6)**, choose **Use the following DNS server addresses** and enter the following DNS server settings:
+
+     - **IPv6:**
+       - **Primary DNS:** `2606:4700:4700::1111`
+       - **Secondary DNS:** `2606:4700:4700::1001`
+
+3. **Save Your Settings**: Click **OK** to save the change to apply the new DNS settings.
+
+**Step 3: Test Your Connection**
+
+Once the EULA is accepted and the DNS server has been updated, test SaltyChat by joining a channel and verifying that the issues have been resolved. If the problem persists, try restarting TeamSpeak or clearing your DNS cache.
+
+</Steps>
+
+### Important Notes
+
+<Callout type="info">
+By changing your DNS server to Cloudflare’s DNS addresses (1.1.1.1 and 2606:4700:4700::1111for IPv6), you can improve the performance and reliability of your connection with SaltyChat. If you experience any issues, you can always switch back to your previous DNS settings.
+</Callout>
