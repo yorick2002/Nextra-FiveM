@@ -39,7 +39,7 @@ function useNextSeoProps() {
 const config: DocsThemeConfig = {
   logo: <span>Docs</span>,
   project: {
-    link: 'https://github.com/yorick20022',
+    link: 'https://github.com/yorick2002',
   },
   docsRepositoryBase: 'https://www.youtube.com/watch?v=xvFZjo5PgG0',
   head: useHead,
