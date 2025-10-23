@@ -41,7 +41,7 @@ const config: DocsThemeConfig = {
   project: {
     link: 'https://github.com/yorick2002',
   },
-  docsRepositoryBase: 'https://www.youtube.com/watch?v=xvFZjo5PgG0',
+  docsRepositoryBase: 'https://github.com/yorick2002/Nextra-FiveM',
   head: useHead,
   useNextSeoProps: useNextSeoProps,
   footer: {
