@@ -56,7 +56,7 @@ First of all, it is very important you shut down the server as soon as possible 
 
 ### Back-up
 
-Make a back-up of your server's resources. Make sure to **exclude** the resources with the backdoor. If you import these files again, you will face the exact same issue very quick.
+Make a back-up of your server's resources and database. How this works is dependent on what you use to manage your database. Consult Google for help. Make sure to **exclude** the resources with the backdoor. If you import these files again, you will face the exact same issue very quick.
 
 ### Reset Operating System
 
@@ -68,31 +68,28 @@ Once you have reset your entire operating system, make sure to still be very car
 
 </Steps>
 
-### Important
+## FAQ
 
 <Callout type="info">
-This backdoor is a **not** a result of a vulnerability in txAdmin
-</Callout>
+**Is this a txAdmin vulnerability?**  
+No, this backdoor is **not** a result of a vulnerability in txAdmin.
 
-<Callout type="info">
+**How does the backdoor spread?**  
 It is unknown what resource is the root cause of the backdoor in your server. You install 1 backdoored resource and it spreads itself through a lot of other resources like a [worm](https://en.wikipedia.org/wiki/Computer_worm).
+
+**Is Cfx aware of this?**  
+Yes, Cfx is aware of the issue and is looking into options to solve the problem.
+
+**How can I prevent this?**  
+Make sure to always know what you are putting in your server. Review your resources for strange files that should not be there. For example, a random javascript file in a Lua resource should not be there.
+
+**Where should I get resources from?**  
+Try your best to get your resources from official channels such as the [Cfx forum](https://forum.cfx.re/c/releases/7). When you get resources from Github, make sure they are safe to use by reviewing the code.
+
+**What should I avoid?**  
+**Never** install a FiveM resource via a Discord server or via leak websites. Not only would you be supporting the leak community, but you are almost guaranteed to face these issues in your server.
 </Callout>
 
-<Callout type="info">
-Cfx is aware of the issue and is looking into options to solve the problem.
-</Callout>
-
-<Callout type="info">
-Make sure to always know what you are putting in your server, this means that you should review your resources for strange files that should not be in there. For example a random javascript file in a Lua resource, should not be there.
-</Callout>
-
-<Callout type="info">
-Try your best to get your resources from official channels such as the [Cfx forum](https://forum.cfx.re/c/releases/7), when you get resources from Github, make sure the resources are safe to use, refer to the previous info box.
-</Callout>
-
-<Callout type="info">
-**Never** install a FiveM resource via a Discord server or via leak websites. Not only because you'd be a scumbag for supporting the trash leak community but also because you are almost guaranteed to face these issues in your server.
-</Callout>
 
 
 
