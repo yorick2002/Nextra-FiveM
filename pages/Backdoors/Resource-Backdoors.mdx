@@ -1,0 +1,98 @@
+---
+title: Resource Backdoors
+description: How to identify and prevent malicious backdoors in FiveM resources
+---
+
+import { Callout } from 'nextra/components';
+import { Steps } from 'nextra-theme-docs';
+import LinkButton from '../../components/link_button';
+
+# FiveM Resource Backdoors
+
+Recently a lot of FiveM servers are dealing with backdoors distributed through malicious resources. This could either be from a shady place like leak websites, but this could also be from Cfx.re Portal.
+
+<Callout type="warning">
+A backdoor gives attackers unauthorized access to your server, allowing them to steal data, modify files, execute commands, and compromise your entire FiveM server and its database.
+</Callout>
+
+## The main issue
+
+The vulnerability exists because of:
+
+- **Node.js Runtime Exposure**: The server side JS runtime exposes file system operations without proper restrictions, allowing the malicious actors to create files and write to them.
+
+## How to find the backdoor
+
+<Steps>
+
+### Install a Code Editor
+
+You will need a code editor like VSCode to search through your resources folder for the backdoor.
+
+- [VSCode](https://code.visualstudio.com/) (Recommended)
+
+### Find the backdoor
+
+Open your `resources` folder in VSCode and use the search functionality (`Ctrl + Shift + F`) to look for this particular common backdoor pattern:
+
+```
+/* [
+```
+
+### Result
+
+As a result you should now see 1 or more results that look like <LinkButton text={"this"} image={"https://r2.fivemanage.com/image/Th2Iq1MPXgcR.png"}/>.
+If you click the file where the backdoor was found, and you scroll to the right, you will find a very long piece of obfuscated javascript code.
+
+</Steps>
+
+### Halp what do I do?
+
+<Steps>
+
+### Shutdown the server
+
+First of all, it is very important you shut down the server as soon as possible to prevent the malicious actors from having access to your server.
+
+### Back-up
+
+Make a back-up of your server's resources. Make sure to **exclude** the resources with the backdoor. If you import these files again, you will face the exact same issue very quick.
+
+### Reset Operating System
+
+You should treat this backdoor as malicious software. That means you should reset the operating system of your server because it is unknown what kind of malicious activities they are doing in the background.
+
+### Setup server again
+
+Once you have reset your entire operating system, make sure to still be very careful with dragging in the resources. 1 resource could easily cause the whole problem to repeat itself again.
+
+</Steps>
+
+### Important
+
+<Callout type="info">
+This backdoor is a **not** a result of a vulnerability in txAdmin
+</Callout>
+
+<Callout type="info">
+It is unknown what resource is the root cause of the backdoor in your server. You install 1 backdoored resource and it spreads itself through a lot of other resources like a [worm](https://en.wikipedia.org/wiki/Computer_worm).
+</Callout>
+
+<Callout type="info">
+Cfx is aware of the issue and is looking into options to solve the problem.
+</Callout>
+
+<Callout type="info">
+Make sure to always know what you are putting in your server, this means that you should review your resources for strange files that should not be in there. For example a random javascript file in a Lua resource, should not be there.
+</Callout>
+
+<Callout type="info">
+Try your best to get your resources from official channels such as the [Cfx forum](https://forum.cfx.re/c/releases/7), when you get resources from Github, make sure the resources are safe to use, refer to the previous info box.
+</Callout>
+
+<Callout type="info">
+**Never** install a FiveM resource via a Discord server or via leak websites. Not only because you'd be a scumbag for supporting the trash leak community but also because you are almost guaranteed to face these issues in your server.
+</Callout>
+
+
+
