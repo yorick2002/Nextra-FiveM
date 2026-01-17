@@ -54,9 +54,13 @@ If you click the file where the backdoor was found, and you scroll to the right,
 
 First of all, it is very important you shut down the server as soon as possible to prevent the malicious actors from having access to your server.
 
+### Make sure the files are clean
+
+In order to make sure the files are clean, the backdoor should be removed from the files. You can do this by deleting the code responsible for the backdoor or you can just delete the file and reinstall it via it's original origin. You should also check the `fxmanifest.lua` file from the backdoored resources to make sure there is nothing in there that should not be in there.
+
 ### Back-up
 
-Make a back-up of your server's resources and database. How this works is dependent on what you use to manage your database. Consult Google for help. Make sure to **exclude** the resources with the backdoor. If you import these files again, you will face the exact same issue very quickly. The backdoor is removed from the resource when you delete the file/code responsible for the backdoor. You can also choose to delete the file and download it again via it's original source.
+Make a back-up of your server's database and resources after inspecting and cleaning them. How backing up the database works depends on what you use to manage your database. Consult Google for help. Make sure to **exclude** the resources with the backdoor.
 
 ### Reset Operating System
 
