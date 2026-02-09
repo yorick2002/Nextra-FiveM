@@ -17,7 +17,7 @@ This guide explains how to expose **txAdmin** and **FXServer** securely using **
 1. Log in to **Cloudflare** and select your domain.
 2. Go to **SSL/TLS → Origin Server**.
 3. Click **Create Certificate**.
-4. Ensure your subdomain (e.g., `txadmin.example.com`) and wildcard (`*.example.com`) are included.
+4. Ensure your subdomain (e.g., `txadmin.example.com`) and wildcard (`*.example.com`) are included. (<LinkButton text={"example"} image={"https://cmap.pics/ibNxG/WZGOPI.png"}/>)
 
 ---
 
@@ -75,6 +75,17 @@ sudo ln -s /etc/nginx/sites-available/txadmin /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```
+
+### 5. DNS Records
+1. Back in Cloudflare navigate to **DNS → Records**
+2. Create a new `A` record for your domain (eg. txadmin.example.com`)
+3. For the IPv4 address enter your server IP Address
+4. Ensure the connection is proxied (<LinkButton text={"example"} image={"https://cmap.pics/ibNxG/y9NFxV.png"}/>)
+
+### 5. SSL Mode
+1. Navigate to **SSL/TLS → Overview**
+2. Under **SSL/TLS encryption** click the configure button
+3. Ensure your SSL is set to `Full` or `Full (Strict)` (<LinkButton text={"example"} image={"https://cmap.pics/ibNxG/Ip7RwJ.png"}/>)
 
 ---
 
