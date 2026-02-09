@@ -1,0 +1,18 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="120" height="120" rx="24" fill="#0F172A"/>
+  <rect x="1.5" y="1.5" width="117" height="117" rx="22.5" stroke="url(#border-grad)" stroke-width="1.5" fill="none"/>
+
+  <!-- Stylized Y -->
+  <path d="M26 20 L60 52" stroke="#3B82F6" stroke-width="10" stroke-linecap="round"/>
+  <path d="M94 20 L60 52" stroke="#F97316" stroke-width="10" stroke-linecap="round"/>
+  <path d="M60 52 L60 100" stroke="#A855F7" stroke-width="10" stroke-linecap="round"/>
+
+  <defs>
+    <linearGradient id="border-grad" x1="0" y1="0" x2="120" y2="120">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="50%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#3B82F6"/>
+    </linearGradient>
+  </defs>
+</svg>

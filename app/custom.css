@@ -1,0 +1,239 @@
+:root, :root.dark, :root.light {
+  --nextra-content-width: full !important;
+}
+
+.hero-section {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  margin-bottom: 2rem;
+}
+
+.hero-badge {
+  display: inline-block;
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+  background: rgba(168, 85, 247, 0.12);
+  color: #a855f7;
+  border: 1px solid rgba(168, 85, 247, 0.25);
+}
+
+:root[class~="dark"] .hero-badge {
+  background: rgba(168, 85, 247, 0.1);
+  color: #c084fc;
+  border-color: rgba(168, 85, 247, 0.2);
+}
+
+.hero-title {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+}
+
+@media (max-width: 640px) {
+  .hero-title {
+    font-size: 1.5rem;
+  }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #3b82f6 0%, #a855f7 50%, #f97316 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-description {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  max-width: 540px;
+  margin: 0 auto;
+  opacity: 0.65;
+}
+
+[class*="nextra-card"] a,
+[class*="x:card"] a {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+[class*="nextra-card"] a:hover,
+[class*="x:card"] a:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -5px rgba(168, 85, 247, 0.15);
+}
+
+:root[class~="dark"] [class*="nextra-card"] a:hover,
+:root[class~="dark"] [class*="x:card"] a:hover {
+  box-shadow: 0 8px 25px -5px rgba(168, 85, 247, 0.2);
+}
+
+nav [class*="active"] {
+  border-left-color: #a855f7 !important;
+}
+
+.nextra-callout,
+[class*="x:callout"] {
+  border-radius: 0.5rem;
+}
+
+/* ─── Code Block Enhancements ────────────────────────── */
+
+/* Block wrapper — subtle purple left accent */
+div.nextra-code {
+  position: relative;
+}
+
+/* Pre element — branded dark background with purple ring */
+:root[class~="dark"] div.nextra-code pre {
+  background: #0C1222 !important;
+  border-radius: 0.75rem !important;
+  --tw-ring-color: rgba(168, 85, 247, 0.15) !important;
+  border-left: 3px solid rgba(168, 85, 247, 0.4);
+}
+
+/* Light mode pre */
+div.nextra-code pre {
+  border-radius: 0.75rem !important;
+  border-left: 3px solid rgba(168, 85, 247, 0.3);
+}
+
+/* Filename bar — match branded dark bg */
+:root[class~="dark"] div.nextra-code > div:first-child:has(+ pre) {
+  background: #0E1525 !important;
+  border-color: rgba(168, 85, 247, 0.2) !important;
+  border-left: 3px solid rgba(168, 85, 247, 0.4);
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
+}
+
+/* Code text in blocks */
+pre code.nextra-code {
+  font-size: 0.85rem;
+  line-height: 1.75;
+}
+
+/* Highlighted lines — purple accent */
+:root[class~="dark"] pre code.nextra-code > span[data-highlighted-line] {
+  background-color: rgba(168, 85, 247, 0.1) !important;
+  box-shadow: 3px 0 #a855f7 inset !important;
+}
+
+pre code.nextra-code > span[data-highlighted-line] {
+  background-color: rgba(168, 85, 247, 0.08) !important;
+  box-shadow: 3px 0 #a855f7 inset !important;
+}
+
+/* Line numbers — dimmer, subtle */
+:root[class~="dark"] pre code.nextra-code[data-line-numbers] > span::before {
+  color: rgba(148, 163, 184, 0.3) !important;
+}
+
+/* Copy button — purple accent on hover */
+div.nextra-code button {
+  transition: all 0.15s ease;
+}
+
+:root[class~="dark"] div.nextra-code button:hover {
+  border-color: rgba(168, 85, 247, 0.5) !important;
+  background: rgba(168, 85, 247, 0.1) !important;
+  color: #c084fc !important;
+}
+
+div.nextra-code button:hover {
+  border-color: rgba(168, 85, 247, 0.4) !important;
+  background: rgba(168, 85, 247, 0.08) !important;
+  color: #a855f7 !important;
+}
+
+/* Inline code — branded styling */
+:not(pre) > code.nextra-code {
+  border-radius: 0.375em;
+  font-size: 0.875em;
+  padding: 0.15em 0.35em;
+}
+
+:root[class~="dark"] :not(pre) > code.nextra-code {
+  background: rgba(168, 85, 247, 0.1) !important;
+  border-color: rgba(168, 85, 247, 0.2) !important;
+  color: #e2e8f0;
+}
+
+:not(pre) > code.nextra-code {
+  background: rgba(168, 85, 247, 0.08) !important;
+  border-color: rgba(168, 85, 247, 0.15) !important;
+}
+
+h2 {
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+:root[class~="dark"] h2 {
+  border-bottom-color: rgba(148, 163, 184, 0.1);
+}
+
+table {
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+th {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+article {
+  line-height: 1.8;
+}
+
+[class*="x:steps"] > div::before {
+  transition: background-color 0.2s ease;
+}
+
+.docs-footer {
+  margin-top: 4rem;
+  padding: 2rem 0;
+  border-top: 1px solid rgba(148, 163, 184, 0.15);
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.6;
+}
+
+:root[class~="dark"] .docs-footer {
+  border-top-color: rgba(148, 163, 184, 0.08);
+}
+
+a {
+  transition: color 0.15s ease;
+}
+
+::selection {
+  background: rgba(168, 85, 247, 0.25);
+  color: inherit;
+}
+
+:root[class~="dark"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+:root[class~="dark"] ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+
+:root[class~="dark"] ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+
+:root[class~="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}

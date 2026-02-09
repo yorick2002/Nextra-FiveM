@@ -1,0 +1,22 @@
+# Yorick Docs
+
+> Community-driven documentation for FiveM server setup, txAdmin, security best practices, and more.
+
+## About
+
+Yorick Docs is an open-source documentation site maintained by Yorick (https://github.com/yorick2002). It provides step-by-step guides for setting up and managing FiveM servers on both Linux and Windows, configuring txAdmin, handling databases, security hardening, and general development tools.
+
+## Sections
+
+- FiveM Server (Linux): Create server, Database, Domain setup, Resources, Auto-update
+- FiveM Server (Windows): Create server, Database, Portforwarding, Resources, Server Banner, Winrar
+- FiveM Client: Update Channel
+- txAdmin: Bot setup, Create account, Master Account, Update
+- General: XAMPP
+- Security: Backdoors, Sandboxing
+
+## Links
+
+- Website: https://docs.yorick.gg
+- Source: https://github.com/yorick2002/Nextra-FiveM
+- Author: https://github.com/yorick2002

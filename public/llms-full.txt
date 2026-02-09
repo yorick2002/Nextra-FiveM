@@ -1,0 +1,93 @@
+# Yorick Docs — Full Documentation
+
+> Community-driven documentation for FiveM server setup, txAdmin, security best practices, and more.
+> Source: https://github.com/yorick2002/Nextra-FiveM
+> Author: Yorick — https://github.com/yorick2002
+
+## FiveM Server — Linux
+
+### Create a FiveM Server
+Guide on how to create a FiveM server using txAdmin on Linux (Ubuntu, Debian, Fedora, CentOS, Arch). Covers downloading artifacts, extracting, running FXServer, and configuring txAdmin with a Cfx license key.
+URL: https://docs.yorick.gg/FiveM/Server/Linux/Create-server
+
+### Database Setup (Linux)
+Guide on how to setup MariaDB on a Linux machine for your FiveM server.
+URL: https://docs.yorick.gg/FiveM/Server/Linux/Database
+
+### Domain Setup (Linux)
+Guide on how to point a domain to your FiveM Linux server.
+URL: https://docs.yorick.gg/FiveM/Server/Linux/Domain-setup
+
+### Resources (Linux)
+Guide on how to install and manage resources on your Linux FiveM server.
+URL: https://docs.yorick.gg/FiveM/Server/Linux/Resources
+
+### Auto-update (Linux)
+Guide on how to auto-update your Linux FiveM server artifacts.
+URL: https://docs.yorick.gg/FiveM/Server/Linux/Auto-update
+
+## FiveM Server — Windows
+
+### Create a FiveM Server
+Guide on how to create a FiveM server using txAdmin on Windows. Covers downloading artifacts, installing, and configuring txAdmin with a Cfx license key.
+URL: https://docs.yorick.gg/FiveM/Server/Windows/Create-server
+
+### Database Setup (Windows)
+Guide on how to install MariaDB and HeidiSQL on Windows for your FiveM server.
+URL: https://docs.yorick.gg/FiveM/Server/Windows/Database
+
+### Portforwarding
+Guide on how to port forward your FiveM server including Windows Firewall and router configuration.
+URL: https://docs.yorick.gg/FiveM/Server/Windows/Portforwarding
+
+### Resources (Windows)
+Guide on how to install and manage resources on your Windows FiveM server.
+URL: https://docs.yorick.gg/FiveM/Server/Windows/Resources
+
+### Server Banner
+Guide on how to set up a server banner for your FiveM server.
+URL: https://docs.yorick.gg/FiveM/Server/Windows/Server-Banner
+
+### WinRAR
+Guide on WinRAR usage for FiveM server files.
+URL: https://docs.yorick.gg/FiveM/Server/Windows/Winrar
+
+## FiveM Client
+
+### Update Channel
+Guide on how to change the FiveM client update channel.
+URL: https://docs.yorick.gg/FiveM/Client/Update-Channel
+
+## txAdmin
+
+### Bot Setup
+Guide on how to set up a txAdmin Discord bot.
+URL: https://docs.yorick.gg/txAdmin/Bot
+
+### Create Account
+Guide on how to create a txAdmin account.
+URL: https://docs.yorick.gg/txAdmin/Create-account
+
+### Master Account
+Guide on how to manage the txAdmin master account.
+URL: https://docs.yorick.gg/txAdmin/Master-Account
+
+### Update txAdmin
+Guide on how to update txAdmin.
+URL: https://docs.yorick.gg/txAdmin/Update
+
+## General
+
+### XAMPP
+Guide on uninstalling XAMPP and migrating to a proper database setup.
+URL: https://docs.yorick.gg/General/Xampp
+
+## Security
+
+### Backdoors
+Guide on identifying and removing backdoors from FiveM resources.
+URL: https://docs.yorick.gg/Security/Backdoors
+
+### Sandboxing
+Guide on sandboxing practices for FiveM server security.
+URL: https://docs.yorick.gg/Security/Sandboxing

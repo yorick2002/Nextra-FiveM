@@ -1,0 +1,99 @@
+---
+title: Backdoors
+description: How to identify and prevent malicious backdoors in FiveM resources
+---
+
+import { Callout } from 'nextra/components';
+import { Steps } from 'nextra/components';
+import LinkButton from '../../components/link_button';
+
+# FiveM Resource Backdoors
+
+Recently a lot of FiveM servers are dealing with backdoors distributed through malicious resources. This could either be from a shady place like leak websites, but this could also be from Cfx.re Portal.
+
+<Callout type="warning">
+A backdoor gives attackers unauthorized access to your server, allowing them to steal data, modify files, execute commands, and compromise your entire FiveM server and its database.
+</Callout>
+
+## The main issue
+
+The vulnerability exists because of:
+
+- **Node.js Runtime Exposure**: The server side JS runtime exposes file system operations without proper restrictions, allowing the malicious actors to create files and write to them.
+
+## How to find the backdoor
+
+<Steps>
+
+### Install a Code Editor
+
+You will need a code editor like VSCode to search through your resources folder for the backdoor.
+
+- [VSCode](https://code.visualstudio.com/) (Recommended)
+
+### Find the backdoor
+
+Open your `resources` folder in VSCode and use the search functionality (`Ctrl + Shift + F`) to look for this particular common backdoor pattern:
+
+```
+/* [
+```
+
+### Result
+
+As a result you should now see 1 or more results that look like <LinkButton text={"this"} image={"https://r2.fivemanage.com/image/Th2Iq1MPXgcR.png"}/>.
+If you click the file where the backdoor was found, and you scroll to the right, you will find a very long piece of obfuscated javascript code.
+
+</Steps>
+
+### Halp what do I do?
+
+<Steps>
+
+### Shutdown the server
+
+First of all, it is very important you shut down the server as soon as possible to prevent the malicious actors from having access to your server.
+
+### Make sure the files are clean
+
+In order to make sure the files are clean, the backdoor should be removed from the files. You can do this by deleting the code responsible for the backdoor or you can just delete the file and reinstall it via it's original origin. You should also check the `fxmanifest.lua` file from the backdoored resources to make sure there is nothing in there that should not be in there.
+
+### Back-up
+
+Make a back-up of your server's database and resources after inspecting and cleaning them. How backing up the database works depends on what you use to manage your database. Consult Google for help. Make sure to **exclude** the resources with the backdoor.
+
+### Reset Operating System
+
+You should treat this backdoor as malicious software. That means you should reset the operating system of your server because it is unknown what kind of malicious activities they are doing in the background.
+
+### Setup server again
+
+Once you have reset your entire operating system, make sure to still be very careful with dragging in the resources. 1 resource could easily cause the whole problem to repeat itself again.
+
+</Steps>
+
+## FAQ
+
+<Callout type="info">
+**Is this a txAdmin vulnerability?**  
+No, this backdoor is **not** a result of a vulnerability in txAdmin.
+
+**How does the backdoor spread?**  
+It is unknown what resource is the root cause of the backdoor in your server. You install 1 backdoored resource and it spreads itself through a lot of other resources like a [worm](https://en.wikipedia.org/wiki/Computer_worm).
+
+**Is Cfx aware of this?**  
+Yes, Cfx is aware of the issue and is looking into options to solve the problem.
+
+**How can I prevent this?**  
+Make sure to always know what you are putting in your server. Review your resources for strange files that should not be there. For example, a random javascript file in a Lua resource should not be there.
+
+**Where should I get resources from?**  
+Try your best to get your resources from official channels such as the [Cfx forum](https://forum.cfx.re/c/releases/7) or the [Cfx Marketplace](https://marketplace.cfx.re/). When you get resources from Github, make sure they are safe to use by reviewing the code.
+
+**What should I avoid?**  
+Never install a FiveM resource via a Discord server or via leak websites. Not only would you be supporting the leak community, but you are almost guaranteed to face these issues in your server.
+</Callout>
+
+
+
+
