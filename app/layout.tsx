@@ -102,11 +102,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
       dir="ltr"
       suppressHydrationWarning
     >
-      <Head
-        faviconGlyph="Y"
-        color={{ hue: 210, saturation: 100 }}
-        backgroundColor={{ dark: 'rgb(15, 23, 42)', light: 'rgb(250, 250, 250)' }}
-      />
       <body>
         <Layout
           banner={null}
