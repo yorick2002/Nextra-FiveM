@@ -1,0 +1,232 @@
+---
+title: Domain setup
+description: Instructions on how to configure your domain with txAdmin and FXServer.
+---
+
+import {Steps} from 'nextra-theme-docs'; import {Callout} from 'nextra/components'; import LinkButton from 'components/link_button.tsx'
+
+# Domain Configuration
+
+This guide explains how to expose **txAdmin** and **FXServer** securely using either **Nginx Reverse Proxy** or **Cloudflare Tunnels**.
+
+## Nginx Reverse Proxy
+If you **do not** already have Nginx installed please follow these instructions first:
+
+<Callout type="warning">
+**If you do not have experience with Nginx or this seems to hard for you we suggest you stick with [Cloudflare Tunnels](#cloudflare-tunnels-recommended).**
+</Callout>
+
+<Steps>
+### Verify Nginx Installation
+If you alread have Nginx installed this command should say its Running and you can skip the three steps below.
+```bash
+sudo systemctl status nginx
+```
+
+### Update your package index:
+```bash
+sudo apt update
+```
+
+### Install Nginx
+```bash
+sudo apt install nginx
+```
+
+### Start and Enable Nginx
+```bash
+sudo systemctl start nginx
+```
+```bash
+sudo systemctl enable nginx 
+```
+</Steps>
+
+<Steps>
+### Generate Cloudflare Certificates
+- Log in to **Cloudflare** and select your domain.
+- Go to **SSL/TLS → Origin Server**.
+- Click **Create Certificate**.
+- Ensure your subdomain (e.g., `txadmin.example.com`) and wildcard (`*.example.com`) are included. <LinkButton text={"example"} image={"https://r2.fivemanage.com/KRqGE4BcTiyHnvrynMA1R/chrome_3p0kCLh8fp.png"}/>
+
+### Install Cloudflare Certificates
+Save the certificates to:
+
+```bash
+sudo nano /etc/ssl/certs/cloudflare_origin.pem
+```
+```bash
+sudo nano /etc/ssl/private/cloudflare_origin.key
+```
+
+### Configuring Nginx (txAdmin)
+Create the following Nginx config file for `txAdmin`:
+
+```bash
+sudo nano /etc/nginx/sites-available/txadmin
+```
+
+```nginx
+server {
+    listen 80;
+    server_name txadmin.example.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name txadmin.example.com;
+
+    ssl_certificate /etc/ssl/certs/cloudflare_origin.pem;
+    ssl_certificate_key /etc/ssl/private/cloudflare_origin.key;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    location / {
+        proxy_pass http://127.0.0.1:40120;
+        proxy_http_version 1.1;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        client_max_body_size 100M;
+    }
+}
+```
+
+### Configuring Nginx (FXServer)
+Create the following Nginx config file for `FXServer`:
+
+```bash
+sudo nano /etc/nginx/sites-available/fxserver
+```
+
+```nginx
+server {
+    listen 80;
+    server_name connect.example.com;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name connect.example.com;
+
+    ssl_certificate /etc/ssl/certs/cloudflare_origin.pem;
+    ssl_certificate_key /etc/ssl/private/cloudflare_origin.key;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    location / {
+        proxy_pass http://127.0.0.1:30120;
+        proxy_http_version 1.1;
+
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        client_max_body_size 100M;
+    }
+}
+```
+
+### Enable and Restart Nginx
+```bash
+sudo ln -s /etc/nginx/sites-available/txadmin /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/fxserver /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl restart nginx
+```
+
+### 6. Configuring DNS Records
+1. Back in Cloudflare navigate to **DNS → Records**
+2. Create a new `A` record for your txAdmin domain (eg. `txadmin.example.com`)
+3. Create another `A` record for your FXServer domain (eg. `connect.example.com`)
+4. For the IPv4 address enter your server IP Address
+5. Ensure the connection is proxied <LinkButton text={"example"} image={"https://r2.fivemanage.com/KRqGE4BcTiyHnvrynMA1R/4ljZT82cdJ.png"}/>
+
+### 7. Configuring SSL Mode(s)
+1. Navigate to **SSL/TLS → Overview**
+2. Under **SSL/TLS encryption** click the configure button
+3. Ensure your SSL is set to `Full` or `Full (Strict)` <LinkButton text={"example"} image={"https://r2.fivemanage.com/KRqGE4BcTiyHnvrynMA1R/ItsWX2vRGd.png"}/>
+
+</Steps>
+
+---
+
+## Cloudflare Tunnels (Recommended)
+
+Cloudflare Tunnels is the recommended way to expose txAdmin and FXServer to the internet. It does not require you to open any ports, comes with HTTPS/SSL and DDoS protection out of the box, and you can enable Rate Limiting in Cloudflare's WAF Rules.
+
+<Callout type="info">
+For more information check out the official [Cloudflare Tunnel docs](https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/).
+</Callout>
+
+<Steps>
+### Install cloudflared
+```bash
+curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb
+sudo dpkg -i cloudflared.deb
+```
+
+### Authenticate with Cloudflare
+This will open a browser window where you select the domain you want to use.
+```bash
+cloudflared tunnel login
+```
+
+### Create a Tunnel
+Replace `my-tunnel` with whatever you want to name it.
+```bash
+cloudflared tunnel create my-tunnel
+```
+Take note of the **Tunnel ID** it gives you, you will need it later.
+
+### Configure the Tunnel
+Create the config file:
+```bash
+sudo nano ~/.cloudflared/config.yml
+```
+
+Paste the following and replace the values with your own:
+```yaml
+tunnel: <your-tunnel-id>
+credentials-file: /root/.cloudflared/<your-tunnel-id>.json
+
+ingress:
+  - hostname: txadmin.example.com
+    service: http://localhost:40120
+  - hostname: connect.example.com
+    service: http://localhost:30120
+  - service: http_status:404
+```
+
+### Route DNS
+This creates the DNS records in Cloudflare for you automatically.
+```bash
+cloudflared tunnel route dns my-tunnel txadmin.example.com
+cloudflared tunnel route dns my-tunnel connect.example.com
+```
+
+### Start the Tunnel
+```bash
+cloudflared tunnel run my-tunnel
+```
+
+### Install as a Service
+So the tunnel starts automatically on boot:
+```bash
+sudo cloudflared service install
+sudo systemctl enable cloudflared
+sudo systemctl start cloudflared
+```
+</Steps>
