@@ -17,10 +17,11 @@ or
 ---
 
 ## Nginx
+If you **do not** already have Nginx installed please follow these instructions first:
 
-### txAdmin
+1. 
 
-#### 1. Generate Cloudflare Origin Certificates
+### 1. Generate Cloudflare Origin Certificates
 1. Log in to **Cloudflare** and select your domain.
 2. Go to **SSL/TLS → Origin Server**.
 3. Click **Create Certificate**.
@@ -28,7 +29,7 @@ or
 
 ---
 
-#### 2. Install Certificates on Your Server
+### 2. Install Certificates on Your Server
 Save the certificates to:
 
 ```bash
@@ -36,7 +37,7 @@ sudo nano /etc/ssl/certs/cloudflare_origin.pem
 sudo nano /etc/ssl/private/cloudflare_origin.key
 ```
 
-#### 3. Nginx Configuration
+### 3. Nginx Configuration
 Create the config file:
 
 ```bash
@@ -76,90 +77,22 @@ server {
 }
 ```
 
-#### 4. Enable and Restart Nginx
+### 4. Enable and Restart Nginx
 ```bash
 sudo ln -s /etc/nginx/sites-available/txadmin /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-#### 5. DNS Records
+### 5. DNS Records
 1. Back in Cloudflare navigate to **DNS → Records**
 2. Create a new `A` record for your domain (eg. txadmin.example.com`)
 3. For the IPv4 address enter your server IP Address
 4. Ensure the connection is proxied (<LinkButton text={"example"} image={"https://cmap.pics/ibNxG/y9NFxV.png"}/>)
 
-#### 6. SSL Mode
+### 6. SSL Mode
 1. Navigate to **SSL/TLS → Overview**
 2. Under **SSL/TLS encryption** click the configure button
 3. Ensure your SSL is set to `Full` or `Full (Strict)` (<LinkButton text={"example"} image={"https://cmap.pics/ibNxG/Ip7RwJ.png"}/>)
 
 ---
-
-### FXServer
-
-#### 1. Generate Cloudflare Origin Certificates
-
-<Callout type="info">
-If you already generated them for txAdmin, you do not need to repeat this step.
-</Callout>
-
-Follow the same steps in Cloudflare and ensure your subdomain (e.g., play.example.com) is included.
-
-#### 2. Install Certificates on Your Server
-Use the same certificate files created earlier:
-- `/etc/ssl/certs/cloudflare_origin.pem`
-- `etc/ssl/private/cloudflare_origin.key`
-
-#### 3. Nginx Configuration
-Create the config file:
-
-```bash
-sudo nano /etc/nginx/sites-available/fxserver
-```
-
-```nginx
-server {
-    listen 80;
-    server_name play.example.com;
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443 ssl http2;
-    server_name play.example.com;
-
-    ssl_certificate /etc/ssl/certs/cloudflare_origin.pem;
-    ssl_certificate_key /etc/ssl/private/cloudflare_origin.key;
-
-    ssl_protocols TLSv1.2 TLSv1.3;
-    ssl_ciphers HIGH:!aNULL:!MD5;
-
-    location / {
-        proxy_pass http://127.0.0.1:30120;
-        proxy_http_version 1.1;
-
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-
-        client_max_body_size 0;
-    }
-}
-```
-
-#### 4. Enable and Restart Nginx
-```bash
-sudo ln -s /etc/nginx/sites-available/fxserver /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl restart nginx
-```
-
----
-
-## Notes & Best Practices
-- **Cloudflare SSL Mode**: Should be set to `Full` or `Full (Strict)`.
-- You can reuse the same Cloudflare origin certificate for multiple subdomains.
