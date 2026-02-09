@@ -3,6 +3,8 @@ title: Custom Domain Configuration
 description: Instructions on how to configure txAdmin and FXServer with Nginx and Cloudflare for secure access.
 ---
 
+import { Callout } from 'nextra/components';
+
 # Custom Domain Configuration
 
 This guide explains how to expose **txAdmin** and **FXServer** securely using **Cloudflare Origin Certificates** and **Nginx**.
@@ -80,7 +82,9 @@ sudo systemctl restart nginx
 
 ### 1. Generate Cloudflare Origin Certificates
 
-> If you already generated them for txAdmin, you do not need to repeat this step.
+<Callout type="info">
+If you already generated them for txAdmin, you do not need to repeat this step.
+</Callout>
 
 Follow the same steps in Cloudflare and ensure your subdomain (e.g., play.example.com) is included.
 
