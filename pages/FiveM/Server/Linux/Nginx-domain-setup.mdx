@@ -1,19 +1,24 @@
 ---
-title: Custom Domain Configuration
-description: Instructions on how to configure txAdmin and FXServer with Nginx and Cloudflare for secure access.
+title: Domain Configuration
+description: Instructions on how to configure your domain with txAdmin and FXServer.
 ---
 
 import { Callout } from 'nextra/components';
 
-# Custom Domain Configuration
+# Domain Configuration
 
-This guide explains how to expose **txAdmin** and **FXServer** securely using **Cloudflare Origin Certificates** and **Nginx**.
+This guide explains how to expose **txAdmin** and **FXServer** securely using either:
+- **Nginx Reverse Proxy**
+or
+- **Cloudflare Tunnels**
 
 ---
 
-## txAdmin
+## Nginx
 
-### 1. Generate Cloudflare Origin Certificates
+### txAdmin
+
+#### 1. Generate Cloudflare Origin Certificates
 1. Log in to **Cloudflare** and select your domain.
 2. Go to **SSL/TLS → Origin Server**.
 3. Click **Create Certificate**.
@@ -21,7 +26,7 @@ This guide explains how to expose **txAdmin** and **FXServer** securely using **
 
 ---
 
-### 2. Install Certificates on Your Server
+#### 2. Install Certificates on Your Server
 Save the certificates to:
 
 ```bash
@@ -29,7 +34,7 @@ sudo nano /etc/ssl/certs/cloudflare_origin.pem
 sudo nano /etc/ssl/private/cloudflare_origin.key
 ```
 
-### 3. Nginx Configuration
+#### 3. Nginx Configuration
 Create the config file:
 
 ```bash
@@ -69,29 +74,29 @@ server {
 }
 ```
 
-### 4. Enable and Restart Nginx
+#### 4. Enable and Restart Nginx
 ```bash
 sudo ln -s /etc/nginx/sites-available/txadmin /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-### 5. DNS Records
+#### 5. DNS Records
 1. Back in Cloudflare navigate to **DNS → Records**
 2. Create a new `A` record for your domain (eg. txadmin.example.com`)
 3. For the IPv4 address enter your server IP Address
 4. Ensure the connection is proxied (<LinkButton text={"example"} image={"https://cmap.pics/ibNxG/y9NFxV.png"}/>)
 
-### 5. SSL Mode
+#### 6. SSL Mode
 1. Navigate to **SSL/TLS → Overview**
 2. Under **SSL/TLS encryption** click the configure button
 3. Ensure your SSL is set to `Full` or `Full (Strict)` (<LinkButton text={"example"} image={"https://cmap.pics/ibNxG/Ip7RwJ.png"}/>)
 
 ---
 
-## FXServer
+### FXServer
 
-### 1. Generate Cloudflare Origin Certificates
+#### 1. Generate Cloudflare Origin Certificates
 
 <Callout type="info">
 If you already generated them for txAdmin, you do not need to repeat this step.
@@ -99,12 +104,12 @@ If you already generated them for txAdmin, you do not need to repeat this step.
 
 Follow the same steps in Cloudflare and ensure your subdomain (e.g., play.example.com) is included.
 
-### 2. Install Certificates on Your Server
+#### 2. Install Certificates on Your Server
 Use the same certificate files created earlier:
 - `/etc/ssl/certs/cloudflare_origin.pem`
 - `etc/ssl/private/cloudflare_origin.key`
 
-### 3. Nginx Configuration
+#### 3. Nginx Configuration
 Create the config file:
 
 ```bash
@@ -144,7 +149,7 @@ server {
 }
 ```
 
-### 4. Enable and Restart Nginx
+#### 4. Enable and Restart Nginx
 ```bash
 sudo ln -s /etc/nginx/sites-available/fxserver /etc/nginx/sites-enabled/
 sudo nginx -t
