@@ -3,6 +3,7 @@ title: Domain Configuration
 description: Instructions on how to configure your domain with txAdmin and FXServer.
 ---
 
+import {Steps} from 'nextra-theme-docs';
 import { Callout } from 'nextra/components';
 
 # Domain Configuration
@@ -19,7 +20,27 @@ or
 ## Nginx
 If you **do not** already have Nginx installed please follow these instructions first:
 
-1. 
+<Steps>
+### Update your package index:
+```bash
+$ sudo apt update
+```
+</Steps>
+
+<Steps>
+### Install Nginx
+```bash
+$ sudo apt install nginx
+```
+</Steps>
+
+<Steps>
+### Start and Enable Nginx
+```bash
+$ sudo systemctl start nginx
+$ sudo systemctl enable nginx 
+```
+</Steps>
 
 ### 1. Generate Cloudflare Origin Certificates
 1. Log in to **Cloudflare** and select your domain.
