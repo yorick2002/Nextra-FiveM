@@ -1,0 +1,97 @@
+---
+title: Fixing WMIC Deprecation Errors
+description: Patch FXServer and txAdmin to stop WMIC console spam on modern Windows builds
+---
+
+import { Steps } from 'nextra-theme-docs';
+import { Callout } from 'nextra/components';
+import LinkButton from 'components/link_button.tsx'
+
+# Fixing WMIC Console Spam in FXServer & txAdmin
+
+If you run an FXServer instance on modern Windows operating systems (such as Windows Server 2025 or recent Windows 11 updates), you may notice your server console getting continuously spammed with `wmic` execution errors.
+
+This guide explains why this happens and provides a direct patch for the bundled `txAdmin` system resource to eliminate the errors without changing FXServer performance monitoring logic.
+
+<Callout type="warning">
+Microsoft has deprecated and removed `wmic.exe` on modern Windows builds. FXServer's bundled monitoring packages (`pidtree` and `pidusage`) rely on `wmic` by default, causing continuous subprocess errors on unpatched server artifacts.
+</Callout>
+
+## Understanding the Issue
+
+txAdmin uses two internal Node.js utilities to monitor process health and performance metrics:
+
+- **`pidtree`**: Fetches process IDs and parent process mappings to track running server binaries.
+- **`pidusage`**: Gathers CPU and RAM utilization metrics for FXServer processes.
+
+Both utilities execute `wmic` commands under Windows by default. When `wmic.exe` is missing from the system, txAdmin continuously throws failure messages into the console during every monitoring polling cycle.
+
+By patching txAdmin’s bundled monitor entrypoint (`server\citizen\system_resources\monitor\core\index.js`), we can redirect both functions to use standard **PowerShell CIM instances** (`Get-CimInstance`) and parse JSON output directly.
+
+---
+
+## Patching FXServer
+
+Follow these steps to update your bundled `monitor/core/index.js` file with PowerShell equivalents.
+
+<Steps>
+
+### Locate and back up the target file
+
+1. Open your main FXServer artifact directory.
+2. Navigate to the bundled txAdmin system resource path:
+   ```text
+   \server\citizen\system_resources\monitor\core\
+   ```
+3. Locate **`index.js`**.
+4. Make a backup copy named `index.js.bak` in case you need to revert changes.
+
+### Patch `pidtree` (Process Tree Listing)
+
+Inside `index.js`, locate the `pidtree` dependency logic where the Windows process query is constructed (look for `wmic PROCESS get ParentProcessId,ProcessId`).
+
+Replace the `wmic` execution call string and text parser with a PowerShell query returning JSON:
+
+```powershell
+powershell.exe -NoProfile -Command "Get-CimInstance Win32_Process | Select-Object ParentProcessId, ProcessId | ConvertTo-Json"
+```
+
+Parse the stdout using `JSON.parse()` instead of WMIC's whitespace-delimited text table parser.
+
+### Patch `pidusage` (CPU & Memory Metrics)
+
+Locate the `pidusage` dependency logic inside `index.js` where process metrics are gathered (look for `wmic PROCESS where` or process stat queries).
+
+Replace the legacy `wmic` call string with the PowerShell `Get-CimInstance` filter:
+
+```powershell
+powershell.exe -NoProfile -Command "Get-CimInstance Win32_Process -Filter 'ProcessId = %PID%' | Select-Object CreationDate, KernelModeTime, UserModeTime, WorkingSetSize | ConvertTo-Json"
+```
+
+Feed the parsed JSON object directly into `pidusage`'s built-in history tracking module. Because the JSON field names match the original WMI property names, CPU and memory delta calculations remain identical.
+
+### Verify file syntax before running
+
+Before starting your server, open Windows PowerShell in the `monitor\core` folder and validate the file syntax:
+
+```powershell
+node --check "index.js"
+```
+
+If Node outputs no errors, your modified script is syntactically valid and safe to execute.
+
+</Steps>
+
+<Callout type="info">
+Because this fix only modifies the data provider layer (switching from legacy `wmic` output to PowerShell JSON), CPU and memory calculation formulas inside txAdmin remain completely unchanged.
+</Callout>
+
+---
+
+## Verification
+
+After applying the patch:
+
+1. Launch FXServer on your Windows machine.
+2. Check the server console log the continuous `wmic` error messages should be gone completely.
+3. Open the **txAdmin Web Panel** and check the system dashboard to verify that CPU% and memory graphs display correctly.
